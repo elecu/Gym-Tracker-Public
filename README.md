@@ -83,6 +83,20 @@ It can be run directly with `node showcase-code/responder-classification.js`, wh
 - A paid tier gated through a payment webhook (Buy Me a Coffee), tracked by expiry date
 - A fully bilingual interface (around 170 exercises, English and Spanish) with alias resolution for informal gym terminology
 
-## Contact
+## Screenshots
 
-Designed, built, and maintained solo. I am happy to walk through any part of this — the architecture, the trade-offs, or the code sample — in more detail.
+<p align="center">
+  <img src="screenshots/tracker-set-logging.jpg" alt="Set logging screen" width="260">
+  <img src="screenshots/tracker-exercise-list.jpg" alt="Exercise list and muscle group filters" width="260">
+  <img src="screenshots/insights-training-analytics.jpg" alt="Training analytics overview" width="260">
+</p>
+<p align="center">
+  <img src="screenshots/insights-volume-adequacy.jpg" alt="Weekly volume adequacy by muscle group" width="260">
+  <img src="screenshots/insights-trend-chart.jpg" alt="Volume trend chart by muscle group" width="260">
+  <img src="screenshots/insights-exercise-order.jpg" alt="Evidence-based exercise order recommendation" width="260">
+</p>
+<p align="center">
+  <img src="screenshots/progress-checkins.jpg" alt="Progress check-ins screen" width="260">
+</p>
+
+These are screenshots of the live, deployed application — the dark theme, layout, and analytics shown are exactly what a user sees, not mock-ups.
