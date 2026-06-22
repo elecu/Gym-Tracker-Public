@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RepStack — Showcase</title>
+  <script>
+    // Detect language preference
+    const currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    document.documentElement.lang = currentLang;
+
+    const SHOWCASE_TEXT = {
+      en: {
+        heroSubtitle: "Your lifting notebook, improved. Scroll to see how it works.",
+        screen1Title: "Check-ins with photos",
+        screen1Desc: "Bodyweight + photo + training phase. Every update is recorded. Export directly to social media.",
+        screen2Title: "Progress timeline",
+        screen2Desc: "See each phase of your training. Bodyweight, photos and notes. Everything synced to your Google Drive.",
+        screen3Title: "Science-based strategy",
+        screen3Desc: "Priority principle: place compound lifts first when you have peak neuromuscular capacity. Real feedback in each block.",
+        screen4Title: "Volume vs effective range",
+        screen4Desc: "10–20 sets per muscle group is the optimal range for hypertrophy. RepStack shows you if you're in zone. Automatic.",
+        screen5Title: "Your gym, your names",
+        screen5Desc: "Every exercise is named exactly how you train it. Filter by muscle group, goal, equipment. Zero forced presets.",
+        screen6Title: "Clean session logging",
+        screen6Desc: "Sets, reps, weight. Previous session always visible. No friction. kg or lb mode. Ultra-fast interface.",
+        screen7Title: "Real-time analytics",
+        screen7Desc: "Training days, total sets, volume. One week of data at a glance. Weekly, everything synced.",
+        screen8Title: "Detect momentum and plateaus",
+        screen8Desc: "Volume by muscle group in chart. Identify which exercises are stalled. Progressive overload auto-flagged. Optional hints.",
+        closingTitle: "Ready to train",
+        closingDesc: "All your data in your Google Drive. No paywalls. Precision for those who take this seriously.",
+        backButton: "← Back to login"
+      },
+      es: {
+        heroSubtitle: "Tu notebook de gym, mejorado. Scroll para ver cómo funciona.",
+        screen1Title: "Check-ins con fotos",
+        screen1Desc: "Bodyweight + foto + fase de entrenamiento. Cada actualización queda registrada. Exporta directamente a redes.",
+        screen2Title: "Timeline de progreso",
+        screen2Desc: "Mira cada fase de tu entrenamiento. Bodyweight, fotos y notas. Todo sincronizado en tu Google Drive.",
+        screen3Title: "Estrategia basada en ciencia",
+        screen3Desc: "Principle de prioridad: coloca los compound lifts primero cuando tienes máxima capacidad neuromuscular. Feedback real en cada bloque.",
+        screen4Title: "Volumen vs rango efectivo",
+        screen4Desc: "10–20 sets por grupo muscular es el rango óptimo para hipertrofia. RepStack te muestra si estás en zona. Automático.",
+        screen5Title: "Tu gym, tus nombres",
+        screen5Desc: "Cada ejercicio se llama exactamente como lo entrenas. Filtras por grupo muscular, objetivo, equipo. Cero presets forzados.",
+        screen6Title: "Log de sesiones limpio",
+        screen6Desc: "Sets, reps, peso. La sesión anterior siempre visible. Sin fricción. Modo kg o lb. Interfaz ultrarrápida.",
+        screen7Title: "Analytics en tiempo real",
+        screen7Desc: "Días de entrenamiento, sets totales, volumen. Una semana de datos a la vista. Semanal, todo sincronizado.",
+        screen8Title: "Detecta momentum y plateaus",
+        screen8Desc: "Volumen por grupo muscular en gráfico. Identifica qué ejercicios se estancaron. Progressive overload auto-flagged. Hints opcionales.",
+        closingTitle: "Listo para entrenar",
+        closingDesc: "Todo tu data en tu Google Drive. Sin paywalls. Precisión para quienes toman esto en serio.",
+        backButton: "← Volver al login"
+      }
+    };
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: "Space Grotesk", sans-serif;
+      background: #0a0a0a;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    section {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .showcase-image {
+      max-width: 100%;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .showcase-text {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      background: rgba(22, 22, 22, 0.95);
+      border: 1px solid #262626;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .showcase-text h3 {
+      font-size: 1.25rem;
+      color: #42f5b3;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .showcase-text p {
+      font-size: 0.95rem;
+      color: #c0c0c0;
+      line-height: 1.5;
+    }
+
+    .hero {
+      background: radial-gradient(ellipse 600px 400px at 50% 38%, #141220 0%, #070707 70%);
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #8e8c96;
+      max-width: 500px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.6;
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+
+    .scroll-hint__line {
+      width: 2px;
+      height: 32px;
+      background: #42f5b3;
+      border-radius: 2px;
+    }
+
+    .scroll-hint svg {
+      width: 24px;
+      height: 24px;
+      color: #42f5b3;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: rgba(22, 22, 22, 0.8);
+      border: 1px solid #262626;
+      color: #42f5b3;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+
+    .back-button:hover {
+      background: rgba(22, 22, 22, 0.95);
+      border-color: #42f5b3;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(4px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint {
+        animation: none;
+        opacity: 0.5;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .showcase-text {
+        bottom: 1rem;
+        padding: 1rem;
+      }
+
+      .showcase-text h3 {
+        font-size: 1.1rem;
+      }
+
+      .showcase-text p {
+        font-size: 0.875rem;
+      }
+
+      .back-button {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="login.html" class="back-button" id="backButton">← Volver al login</a>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+      <img src="Logo/logo.png?v=2" alt="RepStack" style="width: 80px; height: auto;" />
+      <img src="Logo/repstack.png?v=2" alt="RepStack" style="width: 160px; height: auto;" />
+    </div>
+    <p id="heroSubtitle">Tu notebook de gym, mejorado. Scroll para ver cómo funciona.</p>
+    <div class="scroll-hint">
+      <span class="scroll-hint__line"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Showcase 1: Setup -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_005.jpeg" alt="Machines" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen5Title">Tu gym, tus nombres</h3>
+      <p id="screen5Desc">Cada ejercicio se llama exactamente como lo entrenas. Filtras por grupo muscular, objetivo, equipo. Cero presets forzados.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 2: Logging -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_006.jpeg" alt="Session" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen6Title">Log de sesiones limpio</h3>
+      <p id="screen6Desc">Sets, reps, peso. La sesión anterior siempre visible. Sin fricción. Modo kg o lb. Interfaz ultrarrápida.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 3: Insights - Strategy -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_003.jpeg" alt="Exercise Order" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen3Title">Estrategia basada en ciencia</h3>
+      <p id="screen3Desc">Principle de prioridad: coloca los compound lifts primero cuando tienes máxima capacidad neuromuscular. Feedback real en cada bloque.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 4: Insights - Volume -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_004.jpeg" alt="Volume" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen4Title">Volumen vs rango efectivo</h3>
+      <p id="screen4Desc">10–20 sets por grupo muscular es el rango óptimo para hipertrofia. RepStack te muestra si estás en zona. Automático.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 5: Insights - Analytics -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_007.jpeg" alt="Analytics" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen7Title">Analytics en tiempo real</h3>
+      <p id="screen7Desc">Días de entrenamiento, sets totales, volumen. Una semana de datos a la vista. Semanal, todo sincronizado.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 6: Insights - Trends -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_008.jpeg" alt="Trend" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen8Title">Detecta momentum y plateaus</h3>
+      <p id="screen8Desc">Volumen por grupo muscular en gráfico. Identifica qué ejercicios se estancaron. Progressive overload auto-flagged. Hints opcionales.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 7: Results - Timeline -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048_002.jpeg" alt="Timeline" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen2Title">Timeline de progreso</h3>
+      <p id="screen2Desc">Mira cada fase de tu entrenamiento. Bodyweight, fotos y notas. Todo sincronizado en tu Google Drive.</p>
+    </div>
+  </section>
+
+  <!-- Showcase 8: Results - Check-ins -->
+  <section>
+    <img src="Example pics/signal-2026-06-16-145048.jpeg" alt="Check-in" class="showcase-image">
+    <div class="showcase-text">
+      <h3 id="screen1Title">Check-ins con fotos</h3>
+      <p id="screen1Desc">Bodyweight + foto + fase de entrenamiento. Cada actualización queda registrada. Exporta directamente a redes.</p>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="hero">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+      <img src="Logo/logo.png?v=2" alt="RepStack" style="width: 80px; height: auto;" />
+      <img src="Logo/repstack.png?v=2" alt="RepStack" style="width: 160px; height: auto;" />
+    </div>
+    <h2 style="font-size: 2.5rem; color: #ffffff; font-weight: 700;" id="closingTitle">Listo para entrenar</h2>
+    <p id="closingDesc">Todo tu data en tu Google Drive. Sin paywalls. Precisión para quienes toman esto en serio.</p>
+  </section>
+
+  <script>
+    // Apply translations
+    function applyTranslations(lang) {
+      const t = SHOWCASE_TEXT[lang] || SHOWCASE_TEXT.en;
+      Object.keys(t).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) {
+          el.textContent = t[key];
+        }
+      });
+    }
+
+    // Initialize
+    applyTranslations(currentLang);
+  </script>
+</body>
+</html>

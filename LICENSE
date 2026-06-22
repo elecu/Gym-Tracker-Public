@@ -1,0 +1,17 @@
+Portfolio / Case Study Notice
+
+This repository is a curated case study describing the architecture of a
+commercial product ("RepStack", live at https://rep-stack.pages.dev/). It is
+published for evaluation purposes only (e.g. job applications, technical
+interviews).
+
+The code sample in showcase-code/ is provided for review only. It is NOT
+licensed for reuse, modification, redistribution, or incorporation into any
+other project, commercial or otherwise, without explicit written permission
+from the author.
+
+The RepStack application itself, its full source code, and all associated
+assets not included in this repository remain proprietary and are not
+covered by any open-source license.
+
+Copyright (c) 2026 elecu. All rights reserved.
